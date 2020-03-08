@@ -6,22 +6,26 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="itsatrap.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
 <body>
-    <img id="theImage" src="trappic.png" alt="image broke" class="center">
+    <div class="banner">
+        <div class="button-stack">
+            <button type="button" class="btn btn-secondary banner-button" onclick="toggleHeatmap()">Toggle Heatmap</button>
+            <button type="button" class="btn btn-secondary banner-button" onclick="changeGradient()">Change gradient</button>
+        </div>
+        <img id="theImage" src="trappic.png" alt="image broke" class="center">
+        <div class="button-stack">
+            <button type="button" class="btn btn-secondary banner-button" onclick="changeRadius()">Change radius</button>
+            <button type="button" class="btn btn-secondary banner-button" onclick="changeOpacity()">Change opacity</button>
+        </div>
+    </div>
 
     <div id="map" class="center"></div>
     <script src="itsatrap.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDf9Lci-_vFttF7QkL9-vsa0JY72QB5ZII&libraries=visualization&callback=initMap">
     </script>
-
-    <div id="floating-panel">
-        <button onclick="toggleHeatmap()">Toggle Heatmap</button>
-        <button onclick="changeGradient()">Change gradient</button>
-        <button onclick="changeRadius()">Change radius</button>
-        <button onclick="changeOpacity()">Change opacity</button>
-    </div>
 </body>
 
 </html>
