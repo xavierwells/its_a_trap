@@ -34,7 +34,7 @@ function fixHeatMap(){
         var lonTemp=arr[i].Longitude;
 		//console.log(lonTemp);
 		 //{location: new google.maps.LatLng(37.785, -122.435), weight: 3}
-        var tempVar ={location: new google.maps.LatLng(latitudeTemp, lonTemp), weight: 20};
+        var tempVar ={location: new google.maps.LatLng(latitudeTemp, lonTemp), weight: arr[i].Weight*15};
 		//var tempVar =new google.maps.LatLng(latitudeTemp, lonTemp);
         heatArray.push(tempVar);
     }
@@ -66,7 +66,7 @@ function changeGradient() {
 }
 
 function changeRadius() {
-    heatmap.set('radius', heatmap.get('radius') ? null : 20);
+    heatmap.set('radius', heatmap.get('radius') ? null : 35);
 }
 
 function changeOpacity() {
@@ -87,18 +87,18 @@ function toggleHeatmap() {
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 15,
+        zoom: 9,
         center: {
-            lat: 37.775,
-            lng: -122.434
+            lat: 32.735592,
+            lng: -97.107109
         },
-        mapTypeId: 'terrain'
+        
     });
     getPoints();
     heatmap = new google.maps.visualization.HeatmapLayer({
         data: heatArray,
         map: map,
-		radius: 50
+		radius: 35
     });
     infoWindow = new google.maps.InfoWindow;
 
