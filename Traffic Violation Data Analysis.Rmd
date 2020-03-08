@@ -1,0 +1,27 @@
+---
+title: "Traffic Violation Data Analysis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+We have noticed that the distribution of speeds looks much like a gamma distribution when corrected by the speed limit.
+A potential explanation is that the incidence of police stops increases with polynomial growth, while the incidence of a certain speed occuring decays expoinentially.
+
+This causes an initial growth 
+
+```{r}
+RiskCdf = ecdf(riskFactors)
+a=10.5
+b=1.5
+gammaDest = function(x) 1/(gamma(a)*b^a)*x^(a-1)*exp(-x/b)
+xaxis = seq(0,100,0.05)
+p = ggplot() + geom_line(aes(x=xaxis, y=gammaDest(xaxis), colour = "gamma")) +
+  geom_density(aes(x=speedingDfNoNA$Alleged_Speed-speedingDfNoNA$Posted_Speed, colour = "speed over limit (m.p.h.)")) + scale_fill_discrete(name = "Density", labels = "colour")
+plot(p)
+```
+
+
+
