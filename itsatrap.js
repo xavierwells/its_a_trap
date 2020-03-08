@@ -4,8 +4,8 @@
 // locate you
 
 var map, infoWindow, heatmap;
-var data;
 var heatArray;
+var data;
 function jQueryHandling(){
     function handleFileSelect(evt) {
         var file = evt.target.files[0];
@@ -14,7 +14,8 @@ function jQueryHandling(){
             dynamicTyping: true,
             complete: function(results) {
                 data = results;
-                fixHeatMap();
+				console.log(data);
+				fixHeatMap();
             }
         });
         
@@ -25,18 +26,21 @@ function jQueryHandling(){
 }
 
 function fixHeatMap(){
-    var i;
+    var i
     var arr = data.data;
-    for(i=0;i<10000;i++){
-        var latitudeTemp=arr[i].latitude;
-        var lonTemp=arr[i].longitude;
-        var tempVar = new google.maps.LatLng(latitudeTemp, lonTemp);
+    for(i=0;i<arr.length-1;i++){
+        var latitudeTemp=arr[i].Latitude;
+		//console.log(latitudeTemp);
+        var lonTemp=arr[i].Longitude;
+		//console.log(lonTemp);
+		 //{location: new google.maps.LatLng(37.785, -122.435), weight: 3}
+        var tempVar ={location: new google.maps.LatLng(latitudeTemp, lonTemp), weight: 2000};
+		//var tempVar =new google.maps.LatLng(latitudeTemp, lonTemp);
+		heatmap.set('radius', heatmap.get('radius') ? null : 50);
+
         heatArray.push(tempVar);
     }
-    heatmap = new google.maps.visualization.HeatmapLayer({
-        data: heatArray,
-        map: map
-    });
+	console.log("array pushed to heatmap");
 }
 
 function toggleHeatmap() {
