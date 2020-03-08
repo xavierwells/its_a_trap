@@ -1,11 +1,52 @@
 ---
 title: "Traffic Violation Data Analysis"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
 ```
+
+Here is the cleanup code for this data set. We produced a new csv file by removing all rows with NA's. This may cause bias, but since we are analyzing speeding and location of the incident, observations missing these data are not useful.
+
+```{R}
+citationDf = read.csv("~/OpenDataDay/ItsATrap/data/highway_patrol_data.csv")
+
+#Convert factors to numeric for speed quantities (mph)
+citationDf$Alleged_Speed = as.numeric(levels(citationDf$Alleged_Speed)[citationDf$Alleged_Speed])
+citationDf$Posted_Speed = as.numeric(levels(citationDf$Posted_Speed)[citationDf$Posted_Speed])
+
+#Cut out non-speeding related violations
+speedingDf = citationDf[which(citationDf$Violation_Category == "SPEED - UNSAFE" |
+                                citationDf$Violation_Category == "SPEEDING - OVER LIMITS"),]
+
+#Cut out missing speeds or below-the-limit speeds
+speedingDfNoNA = speedingDf[which(!(is.na(speedingDf$Alleged_Speed) | is.na(speedingDf$Posted_Speed))),]
+speedingDfNoNA = speedingDfNoNA[which(speedingDfNoNA$Alleged_Speed > speedingDfNoNA$Posted_Speed),]
+
+#Convert lat/lng into numerics and remove missing locations
+speedingDfNoNA$Latitude = as.numeric(levels(speedingDfNoNA$Latitude)[speedingDfNoNA$Latitude])
+speedingDfNoNA$Longitude = as.numeric(levels(speedingDfNoNA$Longitude)[speedingDfNoNA$Longitude])
+speedingDfNoNA = speedingDfNoNA[which(!(is.na(speedingDfNoNA$Longitude) | is.na(speedingDfNoNA$Latitude))), ]
+
+#Remove 0 mph posted speeds
+speedingDfNoNA = speedingDfNoNA[which(speedingDfNoNA$Posted_Speed > 0),]
+
+#Create location/riskFactor csv
+mapsDf = speedingDfNoNA[,c("Latitude", "Longitude")]
+meanSpeeding = mean(speedingDfNoNA$Alleged_Speed - speedingDfNoNA$Posted_Speed)
+logistic = function(x) 1/(1+exp((x-meanSpeeding)/9))
+riskFactors = logistic(speedingDfNoNA$Alleged_Speed - speedingDfNoNA$Posted_Speed)
+mapsDf$riskFactor = riskFactors
+
+# #Create final csv for google maps heatmap
+# write.csv(mapsDf, "mapsDf.csv")
+```
+
+
 
 We have noticed that the distribution of speeds looks much like a gamma distribution when corrected by the speed limit.
 A potential explanation is that the incidence of police stops increases with polynomial growth, while the incidence of a certain speed occuring decays expoinentially.
@@ -13,7 +54,6 @@ A potential explanation is that the incidence of police stops increases with pol
 This causes an initial growth 
 
 ```{r}
-RiskCdf = ecdf(riskFactors)
 a=10.5
 b=1.5
 gammaDest = function(x) 1/(gamma(a)*b^a)*x^(a-1)*exp(-x/b)
