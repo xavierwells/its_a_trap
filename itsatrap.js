@@ -33,7 +33,10 @@ function fixHeatMap(){
         var tempVar = new google.maps.LatLng(latitudeTemp, lonTemp);
         heatArray.push(tempVar);
     }
-    heatmap.setData(heatArray);
+    heatmap = new google.maps.visualization.HeatmapLayer({
+        data: heatArray,
+        map: map
+    });
 }
 
 function toggleHeatmap() {
@@ -94,51 +97,6 @@ function initMap() {
         data: heatArray,
         map: map
     });
-
-    function toggleHeatmap() {
-        heatmap.setMap(heatmap.getMap() ? null : map);
-    }
-
-    function changeGradient() {
-        var gradient = [
-            'rgba(0, 255, 255, 0)',
-            'rgba(0, 255, 255, 1)',
-            'rgba(0, 191, 255, 1)',
-            'rgba(0, 127, 255, 1)',
-            'rgba(0, 63, 255, 1)',
-            'rgba(0, 0, 255, 1)',
-            'rgba(0, 0, 223, 1)',
-            'rgba(0, 0, 191, 1)',
-            'rgba(0, 0, 159, 1)',
-            'rgba(0, 0, 127, 1)',
-            'rgba(63, 0, 91, 1)',
-            'rgba(127, 0, 63, 1)',
-            'rgba(191, 0, 31, 1)',
-            'rgba(255, 0, 0, 1)'
-        ]
-        heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
-    }
-
-    function changeRadius() {
-        heatmap.set('radius', heatmap.get('radius') ? null : 20);
-    }
-
-    function changeOpacity() {
-        heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
-    }
-
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-            'Error: The Geolocation service failed.' :
-            'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
-    }
-
-    function toggleHeatmap() {
-        heatmap.setMap(heatmap.getMap() ? null : map);
-    }
-
     infoWindow = new google.maps.InfoWindow;
 
     // Try HTML5 geolocation.
