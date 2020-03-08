@@ -27,8 +27,11 @@ function jQueryHandling(){
 function fixHeatMap(){
     var i;
     var arr = data.data;
-    for(i=0;i<27799;i++){
-        heatArray.push(new google.maps.LatLng(arr[i].latitude, arr[i].longitude));
+    for(i=0;i<10000;i++){
+        var latitudeTemp=arr[i].latitude;
+        var lonTemp=arr[i].longitude;
+        var tempVar = new google.maps.LatLng(latitudeTemp, lonTemp);
+        heatArray.push(tempVar);
     }
     heatmap.setData(heatArray);
 }
