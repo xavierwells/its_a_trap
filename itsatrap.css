@@ -1,0 +1,68 @@
+/* Always set the map height explicitly to define the size of the div
+   * element that contains the map. */
+
+#map {
+    height: 75%;
+    width: 80%;
+}
+
+
+/* Optional: Makes the sample page fill the window. */
+
+html {
+    overflow: hidden;
+    height: 100%;
+    width: auto;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#1e5799+0,7db9e8+30,000000+99&1+0,0.8+25,0.1+35 */
+    background: -moz-linear-gradient(top, rgba(30, 87, 153, 1) 0%, rgba(109, 169, 219, 0.8) 25%, rgba(125, 185, 232, 0.45) 30%, rgba(116, 172, 215, 0.1) 35%, rgba(0, 0, 0, 0.1) 99%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(30, 87, 153, 1) 0%, rgba(109, 169, 219, 0.8) 25%, rgba(125, 185, 232, 0.45) 30%, rgba(116, 172, 215, 0.1) 35%, rgba(0, 0, 0, 0.1) 99%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(30, 87, 153, 1) 0%, rgba(109, 169, 219, 0.8) 25%, rgba(125, 185, 232, 0.45) 30%, rgba(116, 172, 215, 0.1) 35%, rgba(0, 0, 0, 0.1) 99%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#1a000000', GradientType=0);
+    /* IE6-9 */
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+#theImage {
+    align-self: center;
+    height: 20%;
+    width: auto;
+    margin-bottom: 20px;
+}
+
+#floating-panel {
+    position: absolute;
+    bottom: 10px;
+    left: 83%;
+    z-index: 0;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+    font-family: 'Roboto', 'sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+}
+
+#floating-panel {
+    background-color: #fff;
+    border: 1px solid #999;
+    bottom: 10px;
+    left: 83%;
+    padding: 5px;
+    position: absolute;
+    z-index: 0;
+}
