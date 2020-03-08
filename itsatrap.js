@@ -4,6 +4,34 @@
 // locate you
 
 var map, infoWindow, heatmap;
+var data;
+function jQueryHandling(){
+    function handleFileSelect(evt) {
+        var file = evt.target.files[0];
+        Papa.parse(file, {
+            header: true,
+            dynamicTyping: true,
+            complete: function(results) {
+                data = results;
+                var i;
+                var a = []
+                for(i=0;i<data.length;i++)
+                {
+                    a.push({location: new google.maps.LatLng(data[i][1], data[i][2]), weight: data[i][3]});
+                }
+                pointArray = new google.maps.MVCArray(a);
+                heatmap = new google.maps.visualization.HeatmapLayer({
+                data: pointArray
+                });
+                heatmap.setMap(map);
+            }
+        });
+        
+    }
+    $(document).ready(function(){
+    $("#csv-file").change(handleFileSelect);
+    });
+}
 
 function toggleHeatmap() {
     heatmap.setMap(heatmap.getMap() ? null : map);

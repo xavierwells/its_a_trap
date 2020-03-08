@@ -27,38 +27,7 @@
 	<script src="./papaparse.min.js"></script>
 	<script src="./jquery-2.1.1.min.js"></script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDf9Lci-_vFttF7QkL9-vsa0JY72QB5ZII&libraries=visualization&callback=initMap"></script>
-	<script>
-	var data;
-	//var dir = (loc.substring(0, loc.lastIndexOf('/'))).concat('/mapsDf.csv');
-	//const file = fs.createReadStream(dir);
-	function handleFileSelect(evt) {
-		var file = evt.target.files[0];
-		Papa.parse(file, {
-			header: true,
-			dynamicTyping: true,
-			complete: function(results) {
-				data = results;
-				var i;
-				var a = []
-				for(i=0;i<data.length;i++)
-				{
-					a.push({location: new google.maps.LatLng(data[i][1], data[i][2]), weight: data[i][3]});
-				}
-				pointArray = new google.maps.MVCArray(a);
-				heatmap = new google.maps.visualization.HeatmapLayer({
-				data: pointArray
-				});
-				heatmap.setMap(map);
-			}
-		});
-		
-	}
-	$(document).ready(function(){
-    $("#csv-file").change(handleFileSelect);
-	});
-			
-
-</script>
+	<script>jQueryHandling();</script>
 <input type="file" id="csv-file" name="files"/>
 </body>
 
