@@ -34,10 +34,8 @@ function fixHeatMap(){
         var lonTemp=arr[i].Longitude;
 		//console.log(lonTemp);
 		 //{location: new google.maps.LatLng(37.785, -122.435), weight: 3}
-        var tempVar ={location: new google.maps.LatLng(latitudeTemp, lonTemp), weight: 2000};
+        var tempVar ={location: new google.maps.LatLng(latitudeTemp, lonTemp), weight: 20};
 		//var tempVar =new google.maps.LatLng(latitudeTemp, lonTemp);
-		heatmap.set('radius', heatmap.get('radius') ? null : 50);
-
         heatArray.push(tempVar);
     }
 	console.log("array pushed to heatmap");
@@ -99,7 +97,8 @@ function initMap() {
     getPoints();
     heatmap = new google.maps.visualization.HeatmapLayer({
         data: heatArray,
-        map: map
+        map: map,
+		radius: 50
     });
     infoWindow = new google.maps.InfoWindow;
 
