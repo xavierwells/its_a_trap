@@ -29,6 +29,26 @@ body {
     /* IE6-9 */
 }
 
+.banner {
+    height: 20%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+.button-stack {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.banner-button {
+    margin: auto;
+}
+
 .center {
     display: block;
     margin-left: auto;
@@ -38,31 +58,6 @@ body {
 
 #theImage {
     align-self: center;
-    height: 20%;
+    height: 100%;
     width: auto;
-    margin-bottom: 20px;
-}
-
-#floating-panel {
-    position: absolute;
-    bottom: 10px;
-    left: 83%;
-    z-index: 0;
-    background-color: #fff;
-    padding: 5px;
-    border: 1px solid #999;
-    text-align: center;
-    font-family: 'Roboto', 'sans-serif';
-    line-height: 30px;
-    padding-left: 10px;
-}
-
-#floating-panel {
-    background-color: #fff;
-    border: 1px solid #999;
-    bottom: 10px;
-    left: 83%;
-    padding: 5px;
-    position: absolute;
-    z-index: 0;
 }
