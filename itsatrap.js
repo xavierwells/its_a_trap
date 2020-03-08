@@ -39,6 +39,8 @@ function fixHeatMap(){
         heatArray.push(tempVar);
     }
 	console.log("array pushed to heatmap");
+	toggleHeatmap();
+	toggleHeatmap();
 }
 
 function toggleHeatmap() {
