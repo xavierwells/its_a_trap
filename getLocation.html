@@ -13,9 +13,40 @@
 
     <div id="map" class="center"></div>
     <script src="itsatrap.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDf9Lci-_vFttF7QkL9-vsa0JY72QB5ZII&libraries=visualization&callback=initMap">
-    </script>
-
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDf9Lci-_vFttF7QkL9-vsa0JY72QB5ZII&libraries=visualization&callback=initMap"></script>
+	<script src="./papaparse.min.js"></script>
+	<script src="./jquery-2.1.1.min.js"></script>
+	<script>
+	var data;
+	//var dir = (loc.substring(0, loc.lastIndexOf('/'))).concat('/mapsDf.csv');
+	//const file = fs.createReadStream(dir);
+	function handleFileSelect(evt) {
+		var file = evt.target.files[0];
+		Papa.parse(file, {
+			header: true,
+			dynamicTyping: true,
+			complete: function(results) {
+				data = results;
+			}
+		});
+	}
+	$(document).ready(function(){
+    $("#csv-file").change(handleFileSelect);
+	});
+/*	
+	var count = 0; // cache the running count
+papa.parse(file, {
+    worker: true, // Don't bog down the main thread if its a big file
+    step: function(result) {
+        // do stuff with result
+    },
+    complete: function(results, file) {
+        console.log('parsing complete read', count, 'records.'); 
+    }
+});
+*/
+</script>
+<input type="file" id="csv-file" name="files"/>
     <div id="floating-panel">
         <button onclick="toggleHeatmap()">Toggle Heatmap</button>
         <button onclick="changeGradient()">Change gradient</button>
